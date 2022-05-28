@@ -20,14 +20,14 @@ const server = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const orderListCollection = server.db("laptopAccessories").collection("orderList");
 const productsCollection = server.db("laptopAccessories").collection("products");
 const reviewsCollection = server.db("laptopAccessories").collection("reviews");
-const devicesCollection = server.db("laptopAccessories").collection("users");
+const usersCollection = server.db("laptopAccessories").collection("users");
   
 
 //add data to db
-async function addingData(data,dataCollection){
+async function addingData(data,dataCollectionForAdd){
     try {
         await server.connect();
-        const result = await dataCollection.insertOne(data)
+        const result = await dataCollectionForAdd.insertOne(data)
         console.log(`User inserted with id: ${result.insertedId}`)
     } finally {
         await server.close();        
@@ -36,13 +36,104 @@ async function addingData(data,dataCollection){
 
 
 
-//adding review api
-
+//add review api
 app.post('/addreview',(req,res) => {
     const newReview = req.body;
     addingData(newReview,reviewsCollection).catch(console.dir)
     res.send({success:true})
 })
+
+
+//add product api
+app.post("/addproducts", (req,res) => {
+    const newProduct = req.body;
+    addingData(newProduct,productsCollection).catch(console.dir)
+    res.send({success:true})
+})
+
+
+//Data show from api
+async function showData (dataCollectionForShow) {
+    try{
+        await server.connect();
+        
+        const cursor = dataCollectionForShow.find({})
+        const data = await cursor.toArray()
+        console.log('mew')
+        return data;
+    }
+    finally{
+        await server.close();
+    }
+  }
+ 
+  //show all products
+app.get('/showproducts', async (req,res) => {
+  
+    const products = await showData(productsCollection).catch(console.dir)
+    res.send(products)
+  })
+
+  //show all review
+app.get('/showreviews', async (req,res) => {
+  
+    const products = await showData(reviewsCollection).catch(console.dir)
+    res.send(products)
+  })
+  //show all users
+app.get('/showusers', async (req,res) => {
+  
+    const products = await showData(reviewsCollection).catch(console.dir)
+    res.send(products)
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -53,7 +144,7 @@ app.post('/addreview',(req,res) => {
 
 
 app.get('/',(req,res)=> {
-    res.send("Laptop accessories server is running.");
+    res.send("Laptop-accessories server is running.");
 })
 
 
