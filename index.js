@@ -42,6 +42,12 @@ app.post('/addreview',(req,res) => {
     addingData(newReview,reviewsCollection).catch(console.dir)
     res.send({success:true})
 })
+//add user api
+app.post('/adduser',(req,res) => {
+    const newUser = req.body;
+    addingData(newUser,usersCollection).catch(console.dir)
+    res.send({success:true})
+})
 
 
 //add product api
@@ -51,6 +57,17 @@ app.post("/addproducts", (req,res) => {
     res.send({success:true})
 })
 
+//add order api
+app.post("/addorder", (req,res) => {
+    const newOrder = req.body;
+    addingData(newOrder,orderListCollection).catch(console.dir)
+    res.send({success:true})
+})
+
+
+
+
+
 
 //Data show from api
 async function showData (dataCollectionForShow) {
@@ -59,7 +76,7 @@ async function showData (dataCollectionForShow) {
         
         const cursor = dataCollectionForShow.find({})
         const data = await cursor.toArray()
-        console.log('mew')
+        
         return data;
     }
     finally{
@@ -77,16 +94,49 @@ app.get('/showproducts', async (req,res) => {
   //show all review
 app.get('/showreviews', async (req,res) => {
   
-    const products = await showData(reviewsCollection).catch(console.dir)
-    res.send(products)
+    const reviews = await showData(reviewsCollection).catch(console.dir)
+    res.send(reviews)
   })
   //show all users
 app.get('/showusers', async (req,res) => {
   
-    const products = await showData(reviewsCollection).catch(console.dir)
+    const users = await showData(usersCollection).catch(console.dir)
+    res.send(users)
+  })
+
+
+  //show all order
+app.get('/showorders', async (req,res) => {
+    const products = await showData(orderListCollection).catch(console.dir)
     res.send(products)
   })
 
+
+
+
+  //single data from api
+  async function getSingleData (id,dataCollectionForFindOne){
+    try{
+      await server.connect();
+      const search = {_id:ObjectId(id)}
+      
+      const data = await dataCollectionForFindOne.findOne(search)
+      
+      return data
+    }
+    finally{
+      await server.close();
+    }
+  }
+
+//get one product
+  app.get('/showproductdetails/:id', async (req,res) => {
+    const id = req.params.id
+    console.log("id - ",id)
+    const result = await getSingleData(id,productsCollection).catch(console.dir)
+    res.send(result)
+  })
+ 
 
 
 
