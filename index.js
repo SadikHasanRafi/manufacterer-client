@@ -136,9 +136,40 @@ app.get('/showorders', async (req,res) => {
     const result = await getSingleData(id,productsCollection).catch(console.dir)
     res.send(result)
   })
- 
 
 
+
+
+
+
+  
+//update function
+
+async function updateDate (filter,data,dataCollectionForUpdateOne) {
+  try {
+    
+    await server.connect();
+    
+    const options = { upsert: true };
+
+    const updateDoc = { $set: data };
+    const result = await dataCollectionForUpdateOne.updateOne(filter,updateDoc,options)
+    return result
+
+  } finally {
+    await server.close();
+  }
+}
+
+
+app.put('/addoneuser', async  (req,res) => {
+ let email = req.body.email
+ const id = {email:email} 
+ const data = req.body
+  const result = await updateDate(id,data,usersCollection)
+  console.log(result)
+  res.send(result)
+})
 
 
 
