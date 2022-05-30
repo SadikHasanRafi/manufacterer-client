@@ -2,7 +2,7 @@ const express = require("express");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const ObjectId = require("mongodb").ObjectId;
 const cors = require('cors')
-const { ObjectID } = require("json");
+const { ObjectID } = require("bson");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 const app = express();
@@ -13,7 +13,7 @@ const corsConfig = {
 }
 app.use(cors(corsConfig))
 
-// app.use(cors({ origin : "https://laptop-accessories.firebaseapp.com" }))
+app.use(cors({ origin : "https://laptop-accessories.firebaseapp.com" }))
 // app.use(cors());
 app.use(express.json());
 
