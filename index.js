@@ -7,8 +7,13 @@ require("dotenv").config();
 const port = process.env.PORT || 8000;
 const app = express();
 
+const corsConfig = {
+  origin: 'https://laptop-accessories.firebaseapp.com',
+  credentials: true,
+}
+app.use(cors(corsConfig))
 
-app.use(cors({ origin : "https://laptop-accessories.firebaseapp.com" }))
+// app.use(cors({ origin : "" }))
 app.use(express.json());
 
 //sadik192
