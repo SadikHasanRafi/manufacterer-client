@@ -7,13 +7,14 @@ require("dotenv").config();
 const port = process.env.PORT || 5000;
 const app = express();
 
-const corsConfig = {
-  origin: 'https://laptop-accessories.firebaseapp.com'
+// const corsConfig = {
+//   origin: 'https://laptop-accessories.firebaseapp.com'
  
-}
-app.use(cors(corsConfig))
+// }
+// app.use(cors(corsConfig))
 
 app.use(cors({ origin : "https://laptop-accessories.firebaseapp.com" }))
+
 // app.use(cors());
 app.use(express.json());
 
@@ -21,6 +22,7 @@ app.use(express.json());
 //8L1GXEgQxv6QEfAh
 
 const uri =`mongodb+srv://${process.env.USER}:${process.env.PWD}@cluster0.hy9z3.mongodb.net/?retryWrites=true&w=majority`;
+console.log(uri)
 const server = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
