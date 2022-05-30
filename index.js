@@ -122,6 +122,7 @@ app.get("/showproductdetails/:id", async (req, res) => {
   res.send(result);
 });
 
+
 //update function
 async function updateDate(filter, data, dataCollectionForUpdateOne) {
   //filter is the unique key to find a data
@@ -131,11 +132,7 @@ async function updateDate(filter, data, dataCollectionForUpdateOne) {
     const options = { upsert: true };
 
     const updateDoc = { $set: data };
-    const result = await dataCollectionForUpdateOne.updateOne(
-      filter,
-      updateDoc,
-      options
-    );
+    const result = await dataCollectionForUpdateOne.updateOne(filter,updateDoc,options);
     return result;
   } finally {
     await server.close();
@@ -151,7 +148,8 @@ app.put("/addoneuser", async (req, res) => {
   res.send(result);
 });
 
-
+//update product ammount
+app.put('/')
 
 
 
