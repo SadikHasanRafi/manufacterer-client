@@ -1,13 +1,14 @@
 const express = require("express");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const ObjectId = require("mongodb").ObjectId;
-const cors = require("cors");
+const cors = require('cors')
 const { ObjectID } = require("bson");
 require("dotenv").config();
 const port = process.env.PORT || 8000;
 const app = express();
 
-app.use(cors());
+
+app.use(cors({ origin : "https://laptop-accessories.firebaseapp.com" }))
 app.use(express.json());
 
 //sadik192
