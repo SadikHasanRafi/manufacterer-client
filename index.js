@@ -20,8 +20,8 @@ app.use(express.json());
 
 //sadik192
 //8L1GXEgQxv6QEfAh
-
-const uri =`mongodb+srv://${process.env.USER}:${process.env.PWD}@cluster0.hy9z3.mongodb.net/?retryWrites=true&w=majority`;
+const uri = "mongodb+srv://sadik192:8L1GXEgQxv6QEfAh@cluster0.hy9z3.mongodb.net/?retryWrites=true&w=majority";
+// const uri =`mongodb+srv://${process.env.USER}:${process.env.PWD}@cluster0.hy9z3.mongodb.net/?retryWrites=true&w=majority`;
 console.log(uri)
 const server = new MongoClient(uri, {
   useNewUrlParser: true,
