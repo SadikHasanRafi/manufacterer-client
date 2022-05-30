@@ -13,13 +13,14 @@ const corsConfig = {
 }
 app.use(cors(corsConfig))
 
-// app.use(cors({ origin : "" }))
+// app.use(cors({ origin : "https://laptop-accessories.firebaseapp.com" }))
+// app.use(cors());
 app.use(express.json());
 
 //sadik192
 //8L1GXEgQxv6QEfAh
 
-const uri ="mongodb+srv://sadik192:8L1GXEgQxv6QEfAh@cluster0.hy9z3.mongodb.net/?retryWrites=true&w=majority";
+const uri =`mongodb+srv://${process.env.USER}:${process.env.PWD}@cluster0.hy9z3.mongodb.net/?retryWrites=true&w=majority`;
 const server = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
