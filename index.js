@@ -156,7 +156,7 @@ app.put("/addoneuser", async (req, res) => {
 });
 
 //update product ammount
-app.put('/')
+// app.put('/')
 
 
 
