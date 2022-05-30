@@ -2,6 +2,7 @@ const express = require("express");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const ObjectId = require("mongodb").ObjectId;
 const cors = require("cors");
+const { ObjectID } = require("bson");
 require("dotenv").config();
 const port = process.env.PORT || 8000;
 const app = express();
@@ -155,13 +156,16 @@ app.put("/addoneuser", async (req, res) => {
 
 
 //delete product
-app.post("/deleteproduct",async (req, res) => {
+app.delete("/deleteproduct/:id",async (req, res) => {
   try {
     await server.connect();
-    let id = req.body._id
-    
+   
+    const id = req.params.id
+
     console.log(id)
-    const result = await productsCollection.deleteOne({ _id :ObjectId(id) });
+
+    const result = await productsCollection.deleteOne({_id:ObjectId(id)})
+
     res.send(result)
   } finally {
     await server.close();
